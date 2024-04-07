@@ -1,0 +1,34 @@
+{
+	"name": "insite-subscriptions-server",
+	"version": "1.0.216",
+	"description": "inSite subscriptions server side",
+	"type": "module",
+	"main": "./lib/index.js",
+	"module": "./lib/index.js",
+	"exports": {
+		".": "./lib/index.js",
+		"./ws": "./lib/ws/index.js"
+	},
+	"packageManager": "yarn@1.22.22",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nesvet/insite-subscriptions-server.git"
+	},
+	"keywords": [
+		"insite",
+		"subscriptions",
+		"server"
+	],
+	"author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
+	"license": "MIT",
+	"dependencies": {
+		"insite-ws": "^1",
+		"sift": "^16"
+	},
+	"devDependencies": {
+		"@nesvet/eslint-config": "^1"
+	}
+}

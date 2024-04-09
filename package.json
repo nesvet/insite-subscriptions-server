@@ -3,15 +3,12 @@
 	"version": "1.0.216",
 	"description": "inSite subscriptions server side",
 	"type": "module",
-	"main": "./lib/index.js",
-	"module": "./lib/index.js",
-	"exports": {
-		".": "./lib/index.js",
-		"./ws": "./lib/ws/index.js"
-	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
 	"packageManager": "yarn@1.22.22",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "node .conveyer"
 	},
 	"repository": {
 		"type": "git",
@@ -29,6 +26,7 @@
 		"sift": "^16"
 	},
 	"devDependencies": {
+		"@nesvet/conveyer": "^1",
 		"@nesvet/eslint-config": "^1"
 	}
 }

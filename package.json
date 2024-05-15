@@ -1,32 +1,32 @@
 {
-	"name": "insite-subscriptions-server",
-	"version": "1.0.217",
-	"description": "inSite subscriptions server side",
-	"type": "module",
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"packageManager": "yarn@1.22.22",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "node .conveyer"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/nesvet/insite-subscriptions-server.git"
-	},
-	"keywords": [
-		"insite",
-		"subscriptions",
-		"server"
-	],
-	"author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
-	"license": "MIT",
-	"dependencies": {
-		"insite-ws": "^1",
-		"sift": "^16"
-	},
-	"devDependencies": {
-		"@nesvet/conveyer": "^1",
-		"@nesvet/eslint-config": "^1"
-	}
+  "name": "insite-subscriptions-server",
+  "version": "1.0.227",
+  "description": "inSite subscriptions server side",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "packageManager": "bun@1.1.8",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "bun .conveyer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nesvet/insite-subscriptions-server.git"
+  },
+  "keywords": [
+    "insite",
+    "subscriptions",
+    "server"
+  ],
+  "author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
+  "license": "MIT",
+  "dependencies": {
+    "insite-ws": "^1",
+    "sift": "^16"
+  },
+  "devDependencies": {
+    "@nesvet/conveyer": "^2",
+    "@nesvet/eslint-config": "^1"
+  }
 }

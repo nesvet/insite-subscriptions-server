@@ -1,5 +1,6 @@
-export const publications = new Map();
-
+export const publications =
+	process.__insite_publications ??=
+		new Map();
 
 export class Publication {
 	constructor(name, props) {

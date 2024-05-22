@@ -1,5 +1,5 @@
 export const publications =
-	process.__insite_publications ??=
+	globalThis.__insite_publications ??=
 		new Map();
 
 export class Publication {

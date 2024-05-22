@@ -1,7 +1,8 @@
 {
 	"extends": "@nesvet",
 	"env": {
-		"node": true
+		"node": true,
+		"es2020": true
 	},
 	"root": true,
 	"ignorePatterns": [

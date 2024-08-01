@@ -8,7 +8,8 @@
   "packageManager": "bun@1.1.12",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "bun .conveyer.js"
+    "build": "bun .conveyer.js",
+    "postbuild": "tsc -p ."
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,11 @@
   },
   "devDependencies": {
     "@nesvet/eslint-config": "^2.0.24",
+    "@types/node": "^20.14.13",
+    "@types/ws": "^8.5.12",
+    "insite-db": "^2.0.0",
+    "insite-users-server": "^2.0.0-pre",
+    "insite-ws": "^2.0.8",
+    "typescript": "^5.5.4"
   }
 }

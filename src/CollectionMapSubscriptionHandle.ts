@@ -46,7 +46,7 @@ export class CollectionMapSubscriptionHandle<
 	}
 	
 	updates: unknown[] = [];
-	#flushTimeout?: NodeJS.Timeout;
+	private flushTimeout?: NodeJS.Timeout;
 	
 	flushUpdates = () => {
 		
@@ -74,11 +74,11 @@ export class CollectionMapSubscriptionHandle<
 				this.match!(next.fullDocument!)
 			))
 		) {
-			clearTimeout(this.#flushTimeout);
+			clearTimeout(this.flushTimeout);
 			
 			this.updates.push(await this.publication.fetchSubscription(this, next));
 			
-			this.#flushTimeout = setTimeout(this.flushUpdates, 1);
+			this.flushTimeout = setTimeout(this.flushUpdates, 1);
 		}
 		
 	};

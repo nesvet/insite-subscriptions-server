@@ -1,6 +1,6 @@
 import type { AbilitiesSchema } from "insite-users-server";
-import { CollectionMapSubscriptionHandle } from "./CollectionMapSubscriptionHandle";
-import { SubscriptionHandle } from "./SubscriptionHandle";
+import type { CollectionMapSubscriptionHandle } from "./CollectionMapSubscriptionHandle";
+import type { SubscriptionHandle } from "./SubscriptionHandle";
 
 
 export class Subscriptions<AS extends AbilitiesSchema> extends Map<number | string, CollectionMapSubscriptionHandle<AS> | SubscriptionHandle<AS>> {

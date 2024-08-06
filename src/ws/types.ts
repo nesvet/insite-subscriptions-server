@@ -1,14 +1,8 @@
-import type { InSiteWebSocketServerClient } from "insite-ws/server";
-import type { AbilitiesSchema, Session, User } from "insite-users-server";
+import type { AbilitiesSchema } from "insite-users-server";
+import type { WSSCWithUser } from "insite-users-server-ws";
 
-
-export type WithUser<T, AS extends AbilitiesSchema = AbilitiesSchema> = {
-	user?: User<AS>;
-	lastUserId?: string;
-	session?: Session<AS>;
-} & T;
 
 export type SubscriptionArgs<
 	AS extends AbilitiesSchema = AbilitiesSchema,
 	RA extends unknown[] = unknown[]
-> = [ WithUser<InSiteWebSocketServerClient, AS>, ...RA ];
+> = [ WSSCWithUser<AS>, ...RA ];

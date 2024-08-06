@@ -16,8 +16,8 @@ type RestArgs<
 
 
 export class CollectionMapPublication<
-	D extends Document = Document,
 	AS extends AbilitiesSchema = AbilitiesSchema,
+	D extends Document = Document,
 	RA extends unknown[] = unknown[]
 > extends GenericCollectionMapPublication<D, SubscriptionArgs<AS, RA>> {
 	constructor(collection: InSiteWatchedCollection<D>, ...restArgs: RestArgs<AS, D, RA>) {

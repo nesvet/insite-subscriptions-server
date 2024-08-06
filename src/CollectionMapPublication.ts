@@ -66,8 +66,8 @@ export class CollectionMapPublication<
 	SA extends SubscriptionArgs = SubscriptionArgs
 > extends Publication<SA> {
 	constructor(
-		name: string,
 		collection: InSiteWatchedCollection<D>,
+		name: string,
 		queryProps?: ((...args: SA) => false | null | QueryProps<D> | void) | false | null | QueryProps<D>,
 		transform?: (doc: PartialWithId<D>, args: SA) => void
 	) {

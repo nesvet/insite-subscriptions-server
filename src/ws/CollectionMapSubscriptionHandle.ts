@@ -7,8 +7,8 @@ import { SubscriptionArgs } from "./types";
 
 
 export class CollectionMapSubscriptionHandle<
-	D extends Document = Document,
 	AS extends AbilitiesSchema = AbilitiesSchema,
+	D extends Document = Document,
 	RA extends unknown[] = unknown[]
 > extends GenericCollectionMapSubscriptionHandle<D, SubscriptionArgs<AS, RA>> {
 	// eslint-disable-next-line no-useless-constructor

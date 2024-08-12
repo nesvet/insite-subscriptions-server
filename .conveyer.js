@@ -5,7 +5,7 @@ import { Conveyer, ESBuild } from "@nesvet/conveyer";
 const distDir = "dist";
 
 const common = {
-	external: true,
+	external: [ true, "insite-*" ],
 	platform: "node",
 	format: "esm",
 	sourcemap: true,

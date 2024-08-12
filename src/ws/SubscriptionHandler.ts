@@ -57,30 +57,26 @@ export class SubscriptionHandler<AS extends AbilitiesSchema> {
 	
 	private wsSubscriptionMap = new WeakMap<WSSCWithUser<AS>, Subscriptions<AS>>();
 	
-	renewSubscriptionsFor(webSockets: WSSCWithUser<AS>[]) {
+	renewSubscriptionsFor = (webSockets: WSSCWithUser<AS>[]) => {
 		for (const wssc of webSockets)
 			this.wsSubscriptionMap.get(wssc)?.renew();
 		
-	}
+	};
 	
-	private handleClientConnect(wssc: WSSCWithUser<AS>) {
+	private handleClientConnect = (wssc: WSSCWithUser<AS>) =>
 		this.wsSubscriptionMap.set(wssc, new Subscriptions());
-		
-	}
 	
-	private handleClientSession(wssc: WSSCWithUser<AS>) {
+	private handleClientSession = (wssc: WSSCWithUser<AS>) =>
 		this.wsSubscriptionMap.get(wssc)?.renew();
-		
-	}
 	
-	private handleClientSubscribe(
+	private handleClientSubscribe = (
 		wssc: WSSCWithUser<AS>,
 		subscriptionType: typeof types[number],
 		publicationName: string,
 		i: number | string,
 		args: unknown[],
 		immediately?: boolean
-	) {
+	) => {
 		
 		if (types.includes(subscriptionType)) {
 			const publication = publications.get(publicationName) as CollectionMapPublication<AS> | Publication<AS> | undefined;
@@ -99,17 +95,15 @@ export class SubscriptionHandler<AS extends AbilitiesSchema> {
 			}
 		}
 		
-	}
+	};
 	
-	private handleClientUnsubscribe(wssc: WSSCWithUser<AS>, i: number | string) {
+	private handleClientUnsubscribe = (wssc: WSSCWithUser<AS>, i: number | string) =>
 		this.wsSubscriptionMap.get(wssc)?.cancel(i);
-		
-	}
 	
-	private handleClientClose(wssc: WSSCWithUser<AS>) {
+	private handleClientClose = (wssc: WSSCWithUser<AS>) => {
 		for (const subscription of this.wsSubscriptionMap.get(wssc)?.values() ?? [])
 			subscription.cancel();
 		
-	}
+	};
 	
 }

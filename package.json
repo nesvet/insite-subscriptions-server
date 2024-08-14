@@ -30,6 +30,7 @@
     "sift": "^16.0.1",
     "insite-db": "^2",
     "insite-users-server": "^2",
+    "insite-users-server-ws": "^2",
     "insite-ws": "^2"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "insite-subscriptions-server",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "inSite subscriptions server side",
   "type": "module",
   "main": "./dist/index.js",
@@ -9,7 +9,7 @@
     ".": "./dist/index.js",
     "./ws": "./dist/ws/index.js"
   },
-  "packageManager": "bun@1.1.23",
+  "packageManager": "bun@1.1.24",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "bun .conveyer.js",

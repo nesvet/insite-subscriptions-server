@@ -1,6 +1,6 @@
 import type { InSiteWebSocketServer } from "insite-ws/server";
+import type { AbilitiesSchema } from "insite-common";
 import { Collection, type Document } from "insite-db";
-import type { AbilitiesSchema } from "insite-users-server";
 import type { WSSCWithUser } from "insite-users-server-ws";
 import { publications } from "../Publication";
 import { CollectionMapPublication } from "./CollectionMapPublication";

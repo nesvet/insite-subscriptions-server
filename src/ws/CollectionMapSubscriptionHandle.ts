@@ -1,5 +1,5 @@
+import type { AbilitiesSchema } from "insite-common";
 import type { Document } from "insite-db";
-import type { AbilitiesSchema } from "insite-users-server";
 import {
 	CollectionMapSubscriptionHandle as GenericCollectionMapSubscriptionHandle
 } from "../CollectionMapSubscriptionHandle";

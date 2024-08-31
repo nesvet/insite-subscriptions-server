@@ -1,4 +1,4 @@
-import type { AbilitiesSchema } from "insite-users-server";
+import type { AbilitiesSchema } from "insite-common";
 import { SubscriptionHandle as GenericSubscriptionHandle } from "../SubscriptionHandle";
 import { SubscriptionArgs } from "./types";
 

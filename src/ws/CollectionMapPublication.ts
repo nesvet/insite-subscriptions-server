@@ -1,5 +1,5 @@
+import type { AbilitiesSchema } from "insite-common";
 import type { Document, InSiteWatchedCollection } from "insite-db";
-import type { AbilitiesSchema } from "insite-users-server";
 import { CollectionMapPublication as GenericCollectionMapPublication } from "../CollectionMapPublication";
 import { SubscriptionArgs } from "./types";
 

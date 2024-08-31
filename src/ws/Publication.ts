@@ -1,4 +1,4 @@
-import type { AbilitiesSchema } from "insite-users-server";
+import type { AbilitiesSchema } from "insite-common";
 import { Publication as GenericPublication } from "../Publication";
 import { SubscriptionArgs } from "./types";
 

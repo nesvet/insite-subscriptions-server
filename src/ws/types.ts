@@ -1,4 +1,4 @@
-import type { AbilitiesSchema } from "insite-users-server";
+import type { AbilitiesSchema } from "insite-common";
 import type { WSSCWithUser } from "insite-users-server-ws";
 
 

@@ -1,4 +1,4 @@
-import type { AbilitiesSchema } from "insite-users-server";
+import type { AbilitiesSchema } from "insite-common";
 import type { CollectionMapSubscriptionHandle } from "./CollectionMapSubscriptionHandle";
 import type { SubscriptionHandle } from "./SubscriptionHandle";
 

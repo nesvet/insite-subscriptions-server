@@ -1,14 +1,16 @@
 import type { AbilitiesSchema } from "insite-common";
 import { Publication as GenericPublication } from "../Publication";
-import { SubscriptionArgs } from "./types";
+import type { WSSubscriptionArgs } from "./types";
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any, no-useless-constructor */
 
 
 export class Publication<
 	AS extends AbilitiesSchema = AbilitiesSchema,
-	RA extends unknown[] = unknown[]
-> extends GenericPublication<SubscriptionArgs<AS, RA>> {
-	// eslint-disable-next-line no-useless-constructor
-	constructor(...args: ConstructorParameters<typeof GenericPublication<SubscriptionArgs<AS, RA>>>) {
+	RA extends any[] = any[]
+> extends GenericPublication<WSSubscriptionArgs<AS, RA>> {
+	constructor(...args: ConstructorParameters<typeof GenericPublication<WSSubscriptionArgs<AS, RA>>>) {
 		super(...args);
 	}
 }

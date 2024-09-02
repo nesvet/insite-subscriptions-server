@@ -8,23 +8,29 @@ import { CollectionMapSubscriptionHandle } from "./CollectionMapSubscriptionHand
 import { Publication } from "./Publication";
 import { SubscriptionHandle } from "./SubscriptionHandle";
 import { Subscriptions } from "./Subscriptions";
+import type { CollectionMapPublicationArgs, PublicationArgs, WSSubscriptionArgs } from "./types";
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 const types = [ "object", "map" ] as const;
 
-function isPublicationCollectionMap<AS extends AbilitiesSchema>(publication: CollectionMapPublication<AS> | Publication<AS>): publication is CollectionMapPublication<AS> {
+
+function isPublicationCollectionMap<
+	AS extends AbilitiesSchema,
+	D extends Document
+>(
+	publication: CollectionMapPublication<AS, D> | Publication<AS>
+): publication is CollectionMapPublication<AS, D> {
 	return publication.type === "map";
 }
 
-export type WithPublish<T, AS extends AbilitiesSchema> = {
-	publish(...args: ConstructorParameters<typeof Publication>): Publication<AS>;
-} & T;
-
-export type WithPublishCollection<T, AS extends AbilitiesSchema> = {
-	publish<D extends Document>(...args: ConstructorParameters<typeof CollectionMapPublication<AS, D>>): CollectionMapPublication<AS, D>;
-} & WithPublish<T, AS>;
-
-function isCollectionMapPublicationArgs(args: ConstructorParameters<typeof CollectionMapPublication> | ConstructorParameters<typeof Publication>): args is ConstructorParameters<typeof CollectionMapPublication> {
+function isCollectionMapPublicationArgs<
+	AS extends AbilitiesSchema,
+	D extends Document,
+	RA extends any[] = any[]
+>(args: CollectionMapPublicationArgs<AS, D, RA> | PublicationArgs<AS, RA>): args is CollectionMapPublicationArgs<AS, D, RA> {
 	return args[0] instanceof Collection;
 }
 
@@ -40,17 +46,16 @@ export class SubscriptionHandler<AS extends AbilitiesSchema> {
 		
 		wss.on("should-renew-subscriptions", this.renewSubscriptionsFor);
 		
-		Object.assign(wss, {
-			publish: withCollections ?
-				function publishWithCollections(...args: ConstructorParameters<typeof CollectionMapPublication> | ConstructorParameters<typeof Publication>) {
-					if (isCollectionMapPublicationArgs(args))
-						return new CollectionMapPublication<AS>(...args);
-					
-					return new Publication<AS>(...args);
-				} :
-				function (...args: ConstructorParameters<typeof Publication>) {
-					return new Publication<AS>(...args);
-				}
+		Object.assign(wss, withCollections ? {
+			publish<RA extends any[], D extends Document>(...args: CollectionMapPublicationArgs<AS, D, RA> | PublicationArgs<AS, RA>) {
+				return isCollectionMapPublicationArgs(args) ?
+					new CollectionMapPublication<AS, D, RA>(...args) :
+					new Publication<AS, RA>(...args);
+			}
+		} : {
+			publish<RA extends any[]>(...args: PublicationArgs<AS, RA>) {
+				return new Publication<AS, RA>(...args);
+			}
 		});
 		
 	}
@@ -74,7 +79,7 @@ export class SubscriptionHandler<AS extends AbilitiesSchema> {
 		subscriptionType: typeof types[number],
 		publicationName: string,
 		i: number | string,
-		args: unknown[],
+		restArgs: any[],
 		immediately?: boolean
 	) => {
 		
@@ -82,16 +87,20 @@ export class SubscriptionHandler<AS extends AbilitiesSchema> {
 			const publication = publications.get(publicationName) as CollectionMapPublication<AS> | Publication<AS> | undefined;
 			
 			if (publication?.type === subscriptionType) {
-				const handler = (data: unknown) => wssc.sendMessage("s-c"/* subscription changed */, i, data);
+				const subscriptionHandleArgs = [
+					publicationName,
+					[ wssc, ...restArgs ] as WSSubscriptionArgs<AS>,
+					(data: unknown) => wssc.sendMessage("s-c"/* subscription changed */, i, data),
+					immediately
+				] as const;
 				
-				let subscriptionHandle;
-				if (isPublicationCollectionMap(publication)) {
-					type D = typeof publication extends CollectionMapPublication<AS, infer DD> ? DD : never;
-					subscriptionHandle = new CollectionMapSubscriptionHandle<AS, D>(publicationName, [ wssc, ...args ], handler, immediately);
-				} else
-					subscriptionHandle = new SubscriptionHandle<AS>(publicationName, [ wssc, ...args ], handler, immediately);
-				
-				this.wsSubscriptionMap.get(wssc)?.subscribe(i, subscriptionHandle);
+				this.wsSubscriptionMap
+					.get(wssc)
+					?.subscribe(i,
+						isPublicationCollectionMap(publication) ?
+							new CollectionMapSubscriptionHandle<AS>(...subscriptionHandleArgs) :
+							new SubscriptionHandle<AS>(...subscriptionHandleArgs)
+					);
 			}
 		}
 		

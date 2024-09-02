@@ -3,16 +3,18 @@ import type { Document } from "insite-db";
 import {
 	CollectionMapSubscriptionHandle as GenericCollectionMapSubscriptionHandle
 } from "../CollectionMapSubscriptionHandle";
-import { SubscriptionArgs } from "./types";
+import type { WSSubscriptionArgs } from "./types";
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any, no-useless-constructor */
 
 
 export class CollectionMapSubscriptionHandle<
 	AS extends AbilitiesSchema = AbilitiesSchema,
 	D extends Document = Document,
-	RA extends unknown[] = unknown[]
-> extends GenericCollectionMapSubscriptionHandle<D, SubscriptionArgs<AS, RA>> {
-	// eslint-disable-next-line no-useless-constructor
-	constructor(...args: ConstructorParameters<typeof GenericCollectionMapSubscriptionHandle<D, SubscriptionArgs<AS, RA>>>) {
+	RA extends any[] = any[]
+> extends GenericCollectionMapSubscriptionHandle<D, WSSubscriptionArgs<AS, RA>> {
+	constructor(...args: ConstructorParameters<typeof GenericCollectionMapSubscriptionHandle<D, WSSubscriptionArgs<AS, RA>>>) {
 		super(...args);
 	}
 }

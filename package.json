@@ -29,7 +29,7 @@
   "dependencies": {
     "insite-common": "^2.0.0",
     "insite-db": "^2.0.2",
-    "insite-users-server-ws": "^2.0.17",
+    "insite-users-server-ws": "^2.0.18",
     "insite-ws": "^2.0.17",
     "sift": "^16.0.1"
   },

@@ -16,4 +16,6 @@ export type SubscriptionArgs = unknown[];
 
 export type SubscriptionHandler = (fetched: unknown, reason?: unknown) => void;
 
-export type Projection = Record<string, boolean | number>;
+export type Projection = {
+	[key: string]: boolean | number | Projection;
+};

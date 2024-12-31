@@ -6,7 +6,7 @@ import type {
 	Sort
 } from "insite-db";
 import type { WSSCWithUser } from "insite-users-server-ws";
-import type { PartialWithId, Projection, PublicationProps } from "../types";
+import type { Projection, PublicationProps, TransformableDoc } from "../types";
 import type { CollectionMapPublication } from "./CollectionMapPublication";
 import type { Publication } from "./Publication";
 
@@ -36,7 +36,7 @@ export type CollectionMapPublicationArgs<
 	collection: InSiteWatchedCollection<D>,
 	name: string,
 	queryProps?: ((...args: WSSubscriptionArgs<AS, RA>) => false | null | QueryProps<D> | void) | false | null | QueryProps<D>,
-	transform?: (doc: PartialWithId<D>, args: WSSubscriptionArgs<AS, RA>) => void
+	transform?: (doc: TransformableDoc<D>, args: WSSubscriptionArgs<AS, RA>) => void
 ];
 
 

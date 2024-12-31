@@ -2,7 +2,12 @@ import type { Document } from "insite-db";
 import type { SubscriptionHandle } from "./SubscriptionHandle";
 
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 export type PartialWithId<D extends Document> = { _id: string } & Partial<D>;
+
+export type TransformableDoc<D extends Document> = { [key: string]: any } & PartialWithId<D>;
 
 export type PublicationProps<SA extends SubscriptionArgs> = {
 	type?: "object";

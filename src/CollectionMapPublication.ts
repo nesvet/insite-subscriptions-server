@@ -9,7 +9,12 @@ import type {
 import { CollectionMapSubscriptionHandle } from "./CollectionMapSubscriptionHandle";
 import { Publication } from "./Publication";
 import { SubscriptionHandle } from "./SubscriptionHandle";
-import type { PartialWithId, Projection, SubscriptionArgs } from "./types";
+import type {
+	PartialWithId,
+	Projection,
+	SubscriptionArgs,
+	TransformableDoc
+} from "./types";
 
 
 function projectDocument<D extends Document>(document: D, projection: null, isInclusive?: boolean, isTop?: boolean): D;
@@ -69,7 +74,7 @@ export class CollectionMapPublication<
 		collection: InSiteWatchedCollection<D>,
 		name: string,
 		queryProps?: ((...args: SA) => false | null | QueryProps<D> | void) | false | null | QueryProps<D>,
-		transform?: (doc: PartialWithId<D>, args: SA) => void
+		transform?: (doc: TransformableDoc<D>, args: SA) => void
 	) {
 		super(name);
 		
@@ -126,7 +131,7 @@ export class CollectionMapPublication<
 				
 				if (next.operationType === "insert" || (next.operationType !== "delete" && subscription.match!(next.fullDocument!))) {
 					const doc = projectDocument(next.fullDocument!, subscription.projection, subscription.isProjectionInclusive);
-					this.transform?.(doc as PartialWithId<D>, subscription.args);
+					this.transform?.(doc as TransformableDoc<D>, subscription.args);
 					if (subscription.ids.has(_id))
 						return [ "u"/* update */, doc, "updateDescription" in next && next.updateDescription.updatedFields && Object.keys(next.updateDescription.updatedFields) ];
 					

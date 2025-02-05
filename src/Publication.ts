@@ -41,7 +41,7 @@ export class Publication<SA extends SubscriptionArgs = SubscriptionArgs> {
 		
 	}
 	
-	changed(reason: unknown) {
+	changed(reason?: unknown) {
 		for (const subscription of this.subscriptions)
 			subscription.changed(reason);
 		

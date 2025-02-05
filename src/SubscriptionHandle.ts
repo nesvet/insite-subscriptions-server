@@ -34,7 +34,7 @@ export class SubscriptionHandle<SA extends SubscriptionArgs> {
 	args!: SA;
 	handler!: SubscriptionHandler;
 	
-	async changed(reason: unknown) {
+	async changed(reason?: unknown) {
 		this.handler(await this.publication.fetchSubscription(this, reason), reason);
 		
 	}

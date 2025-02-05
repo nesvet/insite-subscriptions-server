@@ -1,9 +1,10 @@
 import type { AbilitiesSchema } from "insite-common";
-import type {
-	Document,
-	Filter,
-	InSiteWatchedCollection,
-	Sort
+import {
+	Collection,
+	type Document,
+	type Filter,
+	type InSiteWatchedCollection,
+	type Sort
 } from "insite-db";
 import type { WSSCWithUser } from "insite-users-server-ws";
 import type { Projection, PublicationProps, TransformableDoc } from "../types";
@@ -28,6 +29,18 @@ export type PublicationArgs<
 	props?: PublicationProps<WSSubscriptionArgs<AS, RA>>
 ];
 
+export type WithPublish<T, AS extends AbilitiesSchema> = T & {
+	publish<RA extends any[]>(...args: PublicationArgs<AS, RA>): Publication<AS, RA>;
+};
+
+
+type QueryProps<D extends Document> = {
+	query?: Filter<D>;
+	projection?: Projection;
+	sort?: Sort;
+	triggers?: string[];
+};
+
 export type CollectionMapPublicationArgs<
 	AS extends AbilitiesSchema,
 	D extends Document,
@@ -39,35 +52,24 @@ export type CollectionMapPublicationArgs<
 	transform?: (doc: TransformableDoc<D>, args: WSSubscriptionArgs<AS, RA>) => void
 ];
 
+export type WithPublishCollection<T, AS extends AbilitiesSchema> = T & WithPublish<T, AS> & {
+	publish<RA extends any[], D extends Document>(...args: CollectionMapPublicationArgs<AS, D, RA>): CollectionMapPublication<AS, D, RA>;
+};
 
-type Publish<
+
+export function isPublicationCollectionMap<
 	AS extends AbilitiesSchema,
-	RA extends any[] = any[]
-> = {
-	(...args: PublicationArgs<AS, RA>): Publication<AS, RA>;
-};
+	D extends Document
+>(
+	publication: CollectionMapPublication<AS, D> | Publication<AS>
+): publication is CollectionMapPublication<AS, D> {
+	return publication.type === "map";
+}
 
-type PublishCollection<
+export function isCollectionMapPublicationArgs<
 	AS extends AbilitiesSchema,
-	D extends Document = Document,
+	D extends Document,
 	RA extends any[] = any[]
-> = {
-	(...args: CollectionMapPublicationArgs<AS, D, RA>): CollectionMapPublication<AS, D, RA>;
-};
-
-
-type QueryProps<D extends Document> = {
-	query?: Filter<D>;
-	projection?: Projection;
-	sort?: Sort;
-	triggers?: string[];
-};
-
-
-export type WithPublish<T, AS extends AbilitiesSchema> = {
-	publish<RA extends any[]>(...args: PublicationArgs<AS, RA>): Publish<AS, RA>;
-} & T;
-
-export type WithPublishCollection<T, AS extends AbilitiesSchema> = {
-	publish<RA extends any[], D extends Document>(...args: CollectionMapPublicationArgs<AS, D, RA>): PublishCollection<AS, D, RA>;
-} & T & WithPublish<T, AS>;
+>(args: CollectionMapPublicationArgs<AS, D, RA> | PublicationArgs<AS, RA>): args is CollectionMapPublicationArgs<AS, D, RA> {
+	return args[0] instanceof Collection;
+}

@@ -3,7 +3,7 @@ import {
 	Collection,
 	type Document,
 	type Filter,
-	type InSiteWatchedCollection,
+	type WatchedCollection,
 	type Sort
 } from "insite-db";
 import type { WSSCWithUser } from "insite-users-server-ws";
@@ -46,7 +46,7 @@ export type CollectionMapPublicationArgs<
 	D extends Document,
 	RA extends any[] = any[]
 > = [
-	collection: InSiteWatchedCollection<D>,
+	collection: WatchedCollection<D>,
 	name: string,
 	queryProps?: ((...args: WSSubscriptionArgs<AS, RA>) => false | null | QueryProps<D> | void) | false | null | QueryProps<D>,
 	transform?: (doc: TransformableDoc<D>, args: WSSubscriptionArgs<AS, RA>) => void

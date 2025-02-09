@@ -1,7 +1,7 @@
 import type { AbilitiesSchema } from "insite-common";
 import type { Document } from "insite-db";
 import type { WSSCWithUser } from "insite-users-server-ws";
-import type { InSiteWebSocketServer } from "insite-ws/server";
+import type { WSServer } from "insite-ws/server";
 import { publications } from "../Publication";
 import { CollectionMapPublication } from "./CollectionMapPublication";
 import { CollectionMapSubscriptionHandle } from "./CollectionMapSubscriptionHandle";
@@ -24,7 +24,7 @@ const TYPES = [ "object", "map" ] as const;
 
 
 export class SubscriptionHandler<AS extends AbilitiesSchema> {
-	constructor(wss: InSiteWebSocketServer, withCollections?: boolean) {
+	constructor(wss: WSServer, withCollections?: boolean) {
 		
 		wss.on("client-connect", this.#handleClientConnect);
 		wss.on("client-session", this.#handleClientSession);

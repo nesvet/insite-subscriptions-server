@@ -1,5 +1,5 @@
 import type { AbilitiesSchema } from "insite-common";
-import type { Document, InSiteWatchedCollection } from "insite-db";
+import type { Document, WatchedCollection } from "insite-db";
 import { CollectionMapPublication as GenericCollectionMapPublication } from "../CollectionMapPublication";
 import type { WSSubscriptionArgs } from "./types";
 
@@ -20,7 +20,7 @@ export class CollectionMapPublication<
 	D extends Document = Document,
 	RA extends any[] = any[]
 > extends GenericCollectionMapPublication<D, WSSubscriptionArgs<AS, RA>> {
-	constructor(collection: InSiteWatchedCollection<D>, ...restArgs: RestArgs<AS, D, RA>) {
+	constructor(collection: WatchedCollection<D>, ...restArgs: RestArgs<AS, D, RA>) {
 		super(collection, ...restArgs);
 	}
 }

@@ -3,7 +3,7 @@ import type {
 	ChangeStreamDocument,
 	Document,
 	Filter,
-	InSiteWatchedCollection,
+	WatchedCollection,
 	Sort
 } from "insite-db";
 import { CollectionMapSubscriptionHandle } from "./CollectionMapSubscriptionHandle";
@@ -71,7 +71,7 @@ export class CollectionMapPublication<
 	SA extends SubscriptionArgs = SubscriptionArgs
 > extends Publication<SA> {
 	constructor(
-		collection: InSiteWatchedCollection<D>,
+		collection: WatchedCollection<D>,
 		name: string,
 		queryProps?: ((...args: SA) => false | null | QueryProps<D> | void) | false | null | QueryProps<D>,
 		transform?: (doc: TransformableDoc<D>, args: SA) => void

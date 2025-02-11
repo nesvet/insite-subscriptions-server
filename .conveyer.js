@@ -6,7 +6,6 @@ const distDir = "dist";
 
 const common = {
 	external: [ true, "insite-*" ],
-	local: "insite-common",
 	platform: "node",
 	format: "esm",
 	sourcemap: true,

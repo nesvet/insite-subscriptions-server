@@ -186,7 +186,7 @@ export class CollectionMapPublication<
 			
 			if (subscription.query) {
 				subscription.match = sift(subscription.query);
-				this.collection.changeListeners.add(subscription.collectionChangeListener);
+				this.collection.onChange(subscription.collectionChangeListener);
 			}
 		}
 		
@@ -203,7 +203,7 @@ export class CollectionMapPublication<
 	
 	onUnsubscribe = (subscription: SubscriptionHandle<SA>) => {
 		if (subscription instanceof CollectionMapSubscriptionHandle && subscription.query)
-			this.collection.changeListeners.delete(subscription.collectionChangeListener);
+			this.collection.removeChangeListener(subscription.collectionChangeListener);
 		
 	};
 	

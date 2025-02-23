@@ -3,8 +3,8 @@ import type {
 	ChangeStreamDocument,
 	Document,
 	Filter,
-	WatchedCollection,
-	Sort
+	Sort,
+	WatchedCollection
 } from "insite-db";
 import { CollectionMapSubscriptionHandle } from "./CollectionMapSubscriptionHandle";
 import { Publication } from "./Publication";
@@ -19,8 +19,8 @@ import type {
 
 function projectDocument<D extends Document>(document: D, projection: null, isInclusive?: boolean, isTop?: boolean): D;
 function projectDocument<D extends Document>(document: D, projection: Projection, isInclusive?: boolean, isTop?: boolean): Partial<D>;
-function projectDocument<D extends Document>(document: D, projection: null | Projection, isInclusive?: boolean, isTop?: boolean): D | Partial<D>;
-function projectDocument<D extends Document>(document: D, projection: null | Projection, isInclusive = true, isTop = true) {
+function projectDocument<D extends Document>(document: D, projection: Projection | null, isInclusive?: boolean, isTop?: boolean): D | Partial<D>;
+function projectDocument<D extends Document>(document: D, projection: Projection | null, isInclusive = true, isTop = true) {
 	if (projection)
 		if (isInclusive) {
 			const projected: Record<string, unknown> = {};
@@ -73,7 +73,7 @@ export class CollectionMapPublication<
 	constructor(
 		collection: WatchedCollection<D>,
 		name: string,
-		queryProps?: ((...args: SA) => false | null | QueryProps<D> | void) | false | null | QueryProps<D>,
+		queryProps?: ((...args: SA) => QueryProps<D> | false | null | void) | QueryProps<D> | false | null,
 		transform?: (doc: TransformableDoc<D>, args: SA) => void
 	) {
 		super(name);
